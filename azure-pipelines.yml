@@ -17,3 +17,43 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+
+jobs:
+  - job: PreFlightCheck
+    displayName: 'Pre-Flight Check'
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+      - checkout: self
+      - bash: |
+          set -euo pipefail
+          echo "Build Source Branch: $(Build.SourceBranchName)"
+          echo "core change"
+          echo "##vso[task.setvariable variable=JOB_TRIGGER_CORE;isOutput=true]true"
+          echo "geth change"
+          echo "##vso[task.setvariable variable=JOB_TRIGGER_GETH_POA;isOutput=true]true"
+          echo "ui change"
+          echo "##vso[task.setvariable variable=JOB_TRIGGER_UI;isOutput=true]true"
+          echo "sdk change"
+          echo "##vso[task.setvariable variable=JOB_TRIGGER_SDK;isOutput=true]true"
+        displayName: check git for changes
+        name: setVars
+
+
+  - job: job_2
+    dependsOn:
+    - PreFlightCheck
+    condition: |
+      or
+      (
+        eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_GETH_POA'], 'true'),
+        eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_CORE'], 'true')
+      )
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+      - checkout: self
+      - bash: |
+          echo "now running job 2"
+

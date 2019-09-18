@@ -32,10 +32,12 @@ jobs:
     dependsOn:
     - PreFlightCheck
     condition: |
-      or
+      and
       (
         eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_GETH_POA'], 'true'),
         eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_CORE'], 'true')
+        eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI'], 'true'),
+        eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_SDK'], 'true')
       )
     pool:
       vmImage: 'Ubuntu 16.04'

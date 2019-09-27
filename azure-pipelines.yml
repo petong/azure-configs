@@ -50,3 +50,14 @@ jobs:
       - bash: |
           echo "now running job 2"
 
+  - job: job_3
+    dependsOn:
+    - PreFlightCheck
+    condition: not(eq(variables['Build.sourceBranch'], 'refs/heads/master'))
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+      - checkout: self
+      - bash: |
+          echo "now running job 2"
+

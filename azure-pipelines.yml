@@ -59,7 +59,8 @@ jobs:
         succeeded(),
         or
         (
-          not(eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          not(eq(variables['Build.SourceBranch'], 'refs/heads/master')),
+          not(eq(variables['Build.SourceBranch'], 'refs/tags'))
         )
       )
 

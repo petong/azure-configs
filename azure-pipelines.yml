@@ -53,7 +53,17 @@ jobs:
   - job: job_3
     dependsOn:
     - PreFlightCheck
-    condition: not(eq(variables['Build.sourceBranch'], 'refs/heads/master'))
+    condition: |
+      and
+      (
+        succeeded(),
+        or
+        (
+          not(eq(variables['Build.SourceBranch'], 'refs/heads/master')),
+          not(eq(variables['Build.SourceBranch'], 'refs/tags'))
+        )
+      )
+
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:

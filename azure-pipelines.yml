@@ -70,4 +70,7 @@ jobs:
       - checkout: self
       - bash: |
           echo "now running job 3"
+          echo "sourceBranch: " $(Build.sourceBranch)
+          echo "SourceBranch: " $(Build.SourceBranch)
+          echo "SourceBranchName: " $(Build.SourceBranchName)
 

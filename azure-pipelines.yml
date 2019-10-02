@@ -57,8 +57,13 @@ jobs:
       and
       (
         succeeded(),
-        not(eq(variables['Build.SourceBranch'], 'refs/heads/master')),
-        not(eq(variables['Build.SourceBranch'], 'refs/tags'))
+        or
+        (
+          eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI'], 'true'),
+          eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_SDK'], 'true'),
+          not(eq(variables['Build.SourceBranch'], 'refs/heads/master')),
+          not(eq(variables['Build.SourceBranch'], 'refs/tags'))
+        )
       )
 
     pool:

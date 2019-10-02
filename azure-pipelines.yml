@@ -57,8 +57,8 @@ jobs:
       and
       (
         succeeded(),
-          not(eq(variables['Build.SourceBranch'], 'refs/heads/master')),
-          not(eq(variables['Build.SourceBranch'], 'refs/tags')),
+          not(eq(variables['Build.sourceBranch'], 'refs/heads/master')),
+          not(eq(variables['Build.sourceBranch'], 'refs/tags')),
         or
         (
           eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI'], 'true'),

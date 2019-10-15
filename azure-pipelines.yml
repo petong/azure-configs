@@ -28,7 +28,6 @@ jobs:
         displayName: check git for changes
         name: setVars
       - bash: |
-          echo "sourceBranch: " $(Build.sourceBranch)
           echo "SourceBranch: " $(Build.SourceBranch)
           echo "SourceBranchName: " $(Build.SourceBranchName)
 
@@ -58,8 +57,8 @@ jobs:
       and
       (
         succeeded(),
-          not(eq(variables['Build.sourceBranch'], 'refs/heads/master')),
-          not(eq(variables['Build.sourceBranch'], 'refs/tags')),
+          not(eq(variables['Build.SourceBranch'], 'refs/heads/master')),
+          not(eq(variables['Build.SourceBranch'], 'refs/tags')),
         or
         (
           eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI'], 'true'),
@@ -73,7 +72,6 @@ jobs:
       - checkout: self
       - bash: |
           echo "now running job 3"
-          echo "sourceBranch: " $(Build.sourceBranch)
           echo "SourceBranch: " $(Build.SourceBranch)
           echo "SourceBranchName: " $(Build.SourceBranchName)
 

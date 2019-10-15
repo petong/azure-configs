@@ -48,6 +48,8 @@ jobs:
     steps:
       - checkout: self
       - bash: |
+          free -m
+          cat /proc/meminfo
           echo "now running job 2"
           sleep 1200
           echo "done sleeping"

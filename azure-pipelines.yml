@@ -49,6 +49,8 @@ jobs:
       - checkout: self
       - bash: |
           echo "now running job 2"
+          sleep 12000
+          echo "done sleeping"
 
   - job: job_3
     dependsOn:

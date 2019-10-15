@@ -49,7 +49,7 @@ jobs:
       - checkout: self
       - bash: |
           echo "now running job 2"
-          sleep 12000
+          sleep 1200
           echo "done sleeping"
 
   - job: job_3

@@ -49,6 +49,7 @@ jobs:
       - checkout: self
       - bash: |
           echo "now running job 2"
+          exit 1
 
   - job: job_3
     dependsOn:
